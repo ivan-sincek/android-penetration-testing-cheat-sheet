@@ -582,7 +582,7 @@ More about my other project at [ivan-sincek/file-scraper](https://github.com/iva
 
 ### SQLite 3
 
-Use [adb](#downloadupload-files-and-directories) to download database files, and then open them using [DB Browser for SQLite](https://sqlitebrowser.org).
+Use [ADB](#downloadupload-files-and-directories) to download database files, and then open them using [DB Browser for SQLite](https://sqlitebrowser.org).
 
 To inspect the content, navigate to `Browse Data` tab, expand `Table` dropdown menu, and select the desired table.
 
@@ -592,7 +592,7 @@ To inspect the content, navigate to `Browse Data` tab, expand `Table` dropdown m
 
 ---
 
-To inspect and/or edit database files on your Android device directly, use [SQLite 3](#magisk-sqlite-3); [adb](#android-debug-bridge-adb) to your Android device and run the following commands:
+To inspect and/or edit database files on your Android device directly, use [SQLite 3](#magisk-sqlite-3); [ADB](#android-debug-bridge-adb) to your Android device and run the following commands:
 
 ```sql
 sqlite3 somefile
