@@ -306,8 +306,8 @@ cd /storage/emulated/0/Android/data/com.someapp.dev/cache/
 cd /mnt/sdcard/Android/obb/com.someapp.dev/cache/
 cd /storage/emulated/0/Android/obb/com.someapp.dev/cache/
 
-cd /mnt/media_rw/3664-6132/Android/data/com.someapp.dev/files
-cd /storage/3664-6132/Android/data/com.someapp.dev/files
+cd /mnt/media_rw/3664-6132/Android/data/com.someapp.dev/files/
+cd /storage/3664-6132/Android/data/com.someapp.dev/files/
 ```
 
 Number `0` in both, `/data/user/0/` and `/storage/emulated/0/` paths, represents the first user in a multi-user device.
@@ -1117,11 +1117,11 @@ Sensitive files such as know your customer (KYC) and similar, should not persist
 Images/screenshots path:
 
 ```fundamental
-cd /mnt/sdcard/DCIM
-cd /storage/emulated/0/DCIM
+cd /mnt/sdcard/DCIM/
+cd /storage/emulated/0/DCIM/
 
-cd /mnt/media_rw/3664-6132/DCIM
-cd /storage/3664-6132/DCIM
+cd /mnt/media_rw/3664-6132/DCIM/
+cd /storage/3664-6132/DCIM/
 ```
 
 ## 12. Tips and Security Best Practices
