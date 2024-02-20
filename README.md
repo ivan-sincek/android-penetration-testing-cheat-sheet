@@ -615,11 +615,11 @@ Decode an APK using [Apktool](#decode).
 Search for hardcoded sensitive data:
 
 ```bash
-echo decoded | nuclei -t ~/mobile-nuclei-templates/Keys -o nuclei_keys_results.txt
+echo decoded | nuclei -t ~/mobile-nuclei-templates/Keys/ -o nuclei_keys_results.txt
 
 cat nuclei_keys_results.txt | grep -Po '(?<=\]\ ).+' | sort -uf > nuclei_keys_results_sorted.txt
 
-echo decoded | nuclei -t ~/mobile-nuclei-templates/Android -o nuclei_android_results.txt
+echo decoded | nuclei -t ~/mobile-nuclei-templates/Android/ -o nuclei_android_results.txt
 
 cat nuclei_android_results.txt | grep -Po '(?<=\]\ ).+' | sort -uf > nuclei_android_results_sorted.txt
 ```
