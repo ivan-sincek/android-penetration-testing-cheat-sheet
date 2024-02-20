@@ -480,9 +480,7 @@ The files should not be world-readable (e.g. `-rw-rw-r--`):
 ls /data/user/0/com.someapp.dev/shared_prefs/ -al
 ```
 
-The production build should not be [debuggable](https://developer.android.com/topic/security/risks/android-debuggable).
-
-If the production build is debuggable, it is possible to get the read access rights to the app specific directories as a low-privileged user by leveraging `run-as` command.
+If the production build is [debuggable](https://developer.android.com/topic/security/risks/android-debuggable), it is possible to get the read access rights to the app specific directories as a low-privileged user by leveraging `run-as` command.
 
 Download a file from SharedPreferences as non-root:
 
