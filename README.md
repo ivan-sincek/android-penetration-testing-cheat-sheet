@@ -400,7 +400,17 @@ Decode an APK using [Apktool](#decode). You should now see the `decoded` directo
 
 ## AndroidManifest.xml
 
-Always inspect `decoded/AndroidManifest.xml` content.
+Always inspect `decoded/AndroidManifest.xml` content for possible misconfigurations.
+
+Things to look for in AndroidManifest.xml:
+
+* `minSdkVersion`, `targetSDKVersion`, and `maxSdkVersion` - app should not support outdated and vulnerable Android releases,
+* `debuggable="true"` - production app (i.e. build) should not be debuggable,
+* `android:allowBackup="true"` - app should not backup any sensitive data,
+* `networkSecurityConfig` - inspect network security configurations for SSL/TLS pinnings, whitelisted domains, and `cleartextTrafficPermitted="true"` inside `decoded/res/xml/` directory,
+* `exported="true"` - enumerate exported activities, content providers, and broadcast receivers,
+* `permission` - look for unused [custom] permissions, and permissions with weak [protection](https://developer.android.com/guide/topics/manifest/permission-element), i.e. `protectionLevel`,
+* etc.
 
 ---
 
@@ -421,18 +431,6 @@ Resolve all `@string` keys from AndroidManifest.xml as `key: value` pairs:
 ```bash
 dir="decoded"; for key in $(grep -Poi '(?<="\@string\/).+?(?=\")' "${dir}/AndroidManifest.xml" | sort -u); do val=$(xmlstarlet sel -t -v "/resources/string[@name='${key}']" "${dir}/res/values/strings.xml"); echo "${key}: ${val}"; done
 ```
-
----
-
-Things to look for in AndroidManifest.xml:
-
-* `minSdkVersion`, `targetSDKVersion`, and `maxSdkVersion` - app should not support outdated and vulnerable Android releases,
-* `debuggable="true"` - production app (i.e. build) should not be debuggable,
-* `android:allowBackup="true"` - app should not backup any sensitive data,
-* `networkSecurityConfig` - inspect network security configurations for SSL/TLS pinnings, whitelisted domains, and `cleartextTrafficPermitted="true"` inside `decoded/res/xml/` directory,
-* `exported="true"` - enumerate exported activities, content providers, and broadcast receivers,
-* `permission` - look for unused [custom] permissions, and permissions with weak [protection](https://developer.android.com/guide/topics/manifest/permission-element), i.e. `protectionLevel`,
-* etc.
 
 ## strings.xml
 
@@ -993,7 +991,7 @@ To do.
 Decompile an APK:
 
 ```bash
-jadx -j $(grep -c 'processor' /proc/cpuinfo) -d /root/Desktop/source/ /root/Desktop/base.apk
+jadx --threads-count $(grep -c 'processor' /proc/cpuinfo) -d /root/Desktop/source/ /root/Desktop/base.apk
 ```
 
 **`d2j-dex2jar` \+ `jadx` actually gives the best results.**
@@ -1007,7 +1005,7 @@ d2j-dex2jar base.apk -o base.jar
 Decompile a JAR:
 
 ```bash
-jadx -j $(grep -c 'processor' /proc/cpuinfo) -d /root/Desktop/source/ /root/Desktop/base.jar
+jadx --threads-count $(grep -c 'processor' /proc/cpuinfo) -d /root/Desktop/source/ /root/Desktop/base.jar
 ```
 
 Although, decompiling a JAR will give you a different directory structure, so you might want to decompile both, base.jar and base.apk.
