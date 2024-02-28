@@ -1153,3 +1153,4 @@ Production app (i.e. build) should not be debuggable.
 * [zxing.org/w/decode.jspx](https://zxing.org/w/decode.jspx) (decode QR codes)
 * [odinforum.com](https://odinforum.com/discussion/11/latest-versions-of-odin-flashing-tool) (firmware flashing tool for Samsung devices)
 * [samfrew.com](https://samfrew.com/) (firmwares for Samsung devices)
+* [xdaforums.com](https://xdaforums.com/t/magisk-the-magic-mask-for-android.3473445) (mobile software development forum)
