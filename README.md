@@ -1003,10 +1003,10 @@ d2j-dex2jar base.apk -o base.jar
 Decompile a JAR:
 
 ```bash
-jadx --threads-count $(grep -c 'processor' /proc/cpuinfo) -d /root/Desktop/source/ /root/Desktop/base.jar
+jadx --threads-count $(grep -c 'processor' /proc/cpuinfo) -d /root/Desktop/source_jar/ /root/Desktop/base.jar
 ```
 
-Although, decompiling a JAR will give you a different directory structure, so you might want to decompile both, base.jar and base.apk.
+Decompiling a JAR will give you a different directory structure, so you might want to decompile both, base.jar and base.apk.
 
 Make sure to specify a full path to the output directory; otherwise, it will default to `/usr/share/jadx/bin/` directory (i.e. to the root directory).
 
