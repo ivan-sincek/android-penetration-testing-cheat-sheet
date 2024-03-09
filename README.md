@@ -409,7 +409,7 @@ Things to look for in AndroidManifest.xml:
 * `android:allowBackup="true"` - app should not backup any sensitive data,
 * `networkSecurityConfig` - inspect network security configurations for SSL/TLS pinnings, whitelisted domains, and `cleartextTrafficPermitted="true"` inside `decoded/res/xml/` directory,
 * `exported="true"` - enumerate exported activities, content providers, and broadcast receivers,
-* `permission` - look for unused [custom] permissions, and permissions with weak [protection](https://developer.android.com/guide/topics/manifest/permission-element), i.e. `protectionLevel`,
+* `permission` - look for unused [custom] permissions, and permissions with weak [protection](https://developer.android.com/guide/topics/manifest/permission-element) (`protectionLevel`),
 * etc.
 
 ---
@@ -474,7 +474,7 @@ Search for files and directories in [SharedPreferences](https://developer.androi
 cd /data/user/0/com.someapp.dev/shared_prefs/
 ```
 
-The files should not be world-readable (e.g. `-rw-rw-r--`):
+The files should not be world-readable (e.g. `-rw-rw-rw-` should be avoided):
 
 ```bash
 ls /data/user/0/com.someapp.dev/shared_prefs/ -al
