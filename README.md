@@ -474,7 +474,7 @@ Search for files and directories in [SharedPreferences](https://developer.androi
 cd /data/user/0/com.someapp.dev/shared_prefs/
 ```
 
-The files should not be world-readable (e.g. `-rw-rw-r--` is good, and `-rw-rw-rw-` is bad):
+The files should not be world-readable (e.g. `-rw-rw-r--` is not good, and `-rw-rw----` is good):
 
 ```bash
 ls /data/user/0/com.someapp.dev/shared_prefs/ -al
