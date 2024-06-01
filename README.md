@@ -784,7 +784,7 @@ adb shell am start -W -a android.intent.action.VIEW -d 'somescheme://com.someapp
 
 Unless there is an explicit need, WebView URLs should not be user-controlled, e.g., through intents.
 
-WebViews can easily lead to cross-site scripting (XSS), arbitrary file read, remote code execute (RCE), etc.
+WebViews can easily lead to cross-site scripting (XSS), arbitrary file read/write, data leakage and exfiltration, remote code execute (RCE), etc.
 
 Things to look for in the source code:
 * [WebView](https://developer.android.com/reference/android/webkit/WebView)
