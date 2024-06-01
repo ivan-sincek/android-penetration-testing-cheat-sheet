@@ -4,12 +4,6 @@ This is more of a checklist for myself. May contain useful tips and tricks. **St
 
 Everything was tested on Kali Linux v2023.1 (64-bit) and Samsung A5 (2017) with Android OS v8.0 (Oreo) and Magisk root v25.2.
 
-Vulnerable apps for learning purposes:
-
-* [WithSecureLabs/sieve](https://github.com/WithSecureLabs/sieve)
-* [satishpatnayak/AndroGoat](https://github.com/satishpatnayak/AndroGoat)
-* [dineshshetty/Android-InsecureBankv2](https://github.com/dineshshetty/Android-InsecureBankv2)
-
 Check [Magisk](https://topjohnwu.github.io/Magisk) if you wish to root your Android device. I have no [liability](https://github.com/ivan-sincek/android-penetration-testing-cheat-sheet/blob/main/LICENSE) over your actions.
 
 For help with any of the tools type `<tool_name> [-h | -hh | --help]` or `man <tool_name>`.
@@ -128,6 +122,8 @@ Future plans:
 **14. [Tips and Security Best Practices](#14-tips-and-security-best-practices)**
 
 **15. [Useful Websites and Tools](#15-useful-websites-and-tools)**
+
+**16. [Vulnerable Apps](#16-vulnerable-apps)**
 
 ## 0. Install Tools
 
@@ -1402,3 +1398,11 @@ Production app (i.e. build) should not be debuggable.
 | [odinforum.com](https://odinforum.com/discussion/11/latest-versions-of-odin-flashing-tool) | Firmware flashing tool for Samsung devices. |
 | [samfrew.com](https://samfrew.com) | Firmwares for Samsung devices. |
 | [xdaforums.com](https://xdaforums.com/t/magisk-the-magic-mask-for-android.3473445) | Mobile software development forum. |
+
+## 16. Vulnerable Apps
+
+Vulnerable apps for learning purposes:
+
+* [WithSecureLabs/sieve](https://github.com/WithSecureLabs/sieve)
+* [satishpatnayak/AndroGoat](https://github.com/satishpatnayak/AndroGoat)
+* [dineshshetty/Android-InsecureBankv2](https://github.com/dineshshetty/Android-InsecureBankv2)
