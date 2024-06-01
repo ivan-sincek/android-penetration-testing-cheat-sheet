@@ -90,7 +90,7 @@ Future plans:
 
 **6. [Deeplinks](#6-deeplinks)**
 
-**7. [WebView](#7-webview)**
+**7. [WebViews](#7-webviews)**
 
 **8. [Frida](#8-frida)**
 
@@ -776,7 +776,7 @@ Open a deeplink using ADB:
 adb shell am start -W -a android.intent.action.VIEW -d 'somescheme://com.someapp.dev/somepath?somekey=somevalue'
 ```
 
-## 7. WebView
+## 7. WebViews
 
 Unless there is an explicit need, WebView URLs should not be user-controlled, e.g., through intents.
 
