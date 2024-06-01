@@ -773,7 +773,7 @@ For `url_schemes.txt` see section [AndroidManifest.xml](#androidmanifestxml), an
 Open a deeplink using ADB:
 
 ```
-adb shell am start -W -a android.intent.action.VIEW -d 'somescheme://com.someapp.dev/some_path?somekey=somevalue'
+adb shell am start -W -a android.intent.action.VIEW -d 'somescheme://com.someapp.dev/somepath?somekey=somevalue'
 ```
 
 ## 7. WebView
