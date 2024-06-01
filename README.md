@@ -792,9 +792,9 @@ Things to look for in the source code:
     * default: `false` on Android OS v4.1+ and API v16+
 * [setAllowFileAccessFromFileURLs](https://developer.android.com/reference/android/webkit/WebSettings#setAllowFileAccessFromFileURLs\(boolean\))
     * default: `false` on Android OS v4.1+ and API v16+
-    * the value is ignored if `getAllowUniversalAccessFromFileURLs` is `true`
+    * value is ignored if `getAllowUniversalAccessFromFileURLs` is `true`
 * [addJavascriptInterface](https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface\(java.lang.Object,%20java.lang.String\))
-    * default: only public methods annotated with `@JavascriptInterface` on Android OS v4.2+ and API v17+; otherwise, all public methods (including inherited ones)
+    * default: only public methods annotated with `@JavascriptInterface` on Android OS v4.2+ and API v17+ can be added; otherwise, all public methods (including inherited ones) can be added
 * [loadUrl](https://developer.android.com/reference/android/webkit/WebView#loadUrl\(java.lang.String\))
 
 Simple cross-site scripting (XSS) payloads:
@@ -1016,7 +1016,7 @@ Also, you can import [Frida](#frida-scripts) script.
 
 ## 10. Drozer
 
-Connect to a remote Drozer agent:
+Connect to a remote agent:
 
 ```fundamental
 drozer console connect --server 192.168.1.10
@@ -1029,8 +1029,6 @@ list
 
 run somemodule --help
 ```
-
----
 
 List / search packages:
 
@@ -1070,6 +1068,8 @@ run app.package.attacksurface com.someapp.dev
 
 Intents, together with other Android components, can easily lead to cross-site scripting (XSS), arbitrary file read/write, data leakage and exfiltration, remote code execute (RCE), etc.
 
+Read more about intents and intent filters [here](developer.android.com/guide/components/intents-filters).
+
 List exported and unexported activities and their intents:
 
 ```fundamental
@@ -1090,6 +1090,8 @@ List browsable URIs (deeplinks):
 run scanner.activity.browsable -a com.someapp.dev
 ```
 
+You need to [reverse engineer](#11-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the intent to exploit it.
+
 Start an activity:
 
 ```fundamental
@@ -1098,15 +1100,15 @@ run app.activity.start --component com.someapp.dev com.someapp.dev.SomeActivity
 run app.activity.start --component com.someapp.dev com.someapp.dev.SomeActivity --action android.intent.action.SOME_ACTION --data-uri somescheme://somehost --extra integer somekey somevalue --extra string somekey somevalue
 ```
 
-__Drozer cannot pass arrays, lists, objects, etc. to an intent due to the console line interface (CLI) limitations, but the same can be done if you build your own APK.__
-
-__You will need to [reverse engineer](#11-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the intent to exploit it.__
-
 Use `--help` to see more options.
 
-Read more about intents and intent filters [here](developer.android.com/guide/components/intents-filters).
+__In Drozer, you cannot pass arrays, lists, objects, etc., to an intent due to the console line interface (CLI) limitations, but the same can be done if you build your own "malicious" app.__
 
 ### Content Providers
+
+You need to [reverse engineer](#11-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the content provider to exploit it.
+
+Read more about content providers [here](https://developer.android.com/guide/topics/providers/content-providers).
 
 List exported and unexported content providers:
 
@@ -1152,13 +1154,13 @@ run app.provider.delete content://com.someapp.dev.ContentProvider --selection 's
 run app.provider.read content://com.someapp.dev.FileProvider/etc/hosts
 ```
 
-__You will need to [reverse engineer](#11-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the content provider to exploit it.__
-
 Use `--help` to see more options.
 
-Read more about content providers [here](https://developer.android.com/guide/topics/providers/content-providers).
-
 ### Broadcast Receivers
+
+You need to [reverse engineer](#11-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the broadcast receiver to exploit it.
+
+Read more about broadcasts [here](https://developer.android.com/develop/background-work/background-tasks/broadcasts).
 
 List exported and unexported broadcast receivers:
 
@@ -1180,7 +1182,7 @@ Send data to a broadcast receiver:
 run app.broadcast.send --action com.someapp.dev.SOME_ACTION --extra integer somekey somevalue --extra string somekey somevalue
 ```
 
-__Drozer, unlike [ADB](#android-debug-bridge-adb), does not allow specifying a broadcast receiver.__
+__In Drozer, you cannot specify a broadcast receiver, but in [ADB](#android-debug-bridge-adb), you can.__
 
 If a broadcast receiver does not have an intent filter, you can try triggering it with a non-existent action:
 
@@ -1188,13 +1190,13 @@ If a broadcast receiver does not have an intent filter, you can try triggering i
 adb shell am broadcast -a android.intent.action.NON_EXISTING_ACTION -n come.someapp.dev/.SomeReceiver
 ```
 
-__You will need to [reverse engineer](#11-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the broadcast receiver to exploit it.__
-
 Use `--help` to see more options.
 
-Read more about broadcasts [here](https://developer.android.com/develop/background-work/background-tasks/broadcasts).
-
 ### Services
+
+You will to [reverse engineer](#11-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the service to exploit it.
+
+Read more about services [here](https://developer.android.com/develop/background-work/services).
 
 List exported and unexported services:
 
@@ -1214,11 +1216,7 @@ run app.service.send com.someapp.dev com.someapp.dev.SomeService --msg what arg1
 
 `--bundle-as-obj` helps you to parse a special type of return data. Read more about the Bundle class [here](https://developer.android.com/reference/android/os/Bundle).
 
-__You will need to [reverse engineer](#11-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the service to exploit it.__
-
 Use `--help` to see more options.
-
-Read more about services [here](https://developer.android.com/develop/background-work/services).
 
 ## 11. Decompile an APK
 
