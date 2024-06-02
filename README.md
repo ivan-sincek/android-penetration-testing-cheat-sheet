@@ -1401,6 +1401,8 @@ Production app (i.e. build) should not be debuggable.
 
 Vulnerable apps for learning purposes:
 
+* [payatu/diva-android](https://github.com/payatu/diva-android)
 * [WithSecureLabs/sieve](https://github.com/WithSecureLabs/sieve)
 * [satishpatnayak/AndroGoat](https://github.com/satishpatnayak/AndroGoat)
 * [dineshshetty/Android-InsecureBankv2](https://github.com/dineshshetty/Android-InsecureBankv2)
+* [ctf.hpandro.raviramesh.info](https://ctf.hpandro.raviramesh.info)
