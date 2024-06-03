@@ -37,7 +37,7 @@ Future plans:
 * modify `networkSecurityConfig` to add custom root CA certificates,
 * test widgets, push notifications, and Firebase,
 * tapjacking,
-* deeplink hijacking, task hijacking, intent hijacking,
+* deep link hijacking, task hijacking, intent hijacking,
 * ~~intent injections, content provider injections, broadcast receiver injections, service injections,~~
 * SMALI code injection,
 * ~~WebView attacks~~,
@@ -88,7 +88,7 @@ Future plans:
 
 **5. [SpotBugs](#5-SpotBugs)**
 
-**6. [Deeplinks](#6-deeplinks)**
+**6. [Deep Links](#6-deep-links)**
 
 **7. [WebViews](#7-webviews)**
 
@@ -566,7 +566,7 @@ rabin2 -zzzqq somefile | grep -Pi '(?:access|account|admin|basic|bearer|card|con
 rabin2 -zzzqq somefile | grep -Pi '[^\w\d\n]+(?:bug|comment|fix|issue|note|problem|to(?:\_|\ |)do|work)[^\w\d\n]+.+'
 ```
 
-Extract URLs, deeplinks, IPs, etc.:
+Extract URLs, deep links, IPs, etc.:
 
 ```bash
 rabin2 -zzzqq somefile | grep -Po '\w+\:\/\/[\w\-\.\@\:\/\?\=\%\&\#]+' | sort -uf | tee urls.txt
@@ -596,7 +596,7 @@ IFS=$'\n'; for file in $(find . -type f); do echo -n "\nFILE: \"${file}\"\n"; ra
 IFS=$'\n'; for file in $(find . -type f); do echo -n "\nFILE: \"${file}\"\n"; rabin2 -zzzqq "${file}" 2>/dev/null | grep -Pi '[^\w\d\n]+(?:bug|comment|fix|issue|note|problem|to(?:\_|\ |)do|work)[^\w\d\n]+.+'; done
 ```
 
-Extract URLs, deeplinks, IPs, etc.:
+Extract URLs, deep links, IPs, etc.:
 
 ```bash
 IFS=$'\n'; for file in $(find . -type f); do rabin2 -zzzqq "${file}" 2>/dev/null; done | grep -Po '\w+\:\/\/[\w\-\.\@\:\/\?\=\%\&\#]+' | grep -Piv '\.(css|gif|jpeg|jpg|ogg|otf|png|svg|ttf|woff|woff2)' | sort -uf | tee urls.txt
@@ -744,33 +744,33 @@ java -jar spotbugs.jar -textui -progress -sourcepath /root/Desktop/source_jar/so
 
 More about the tool at [spotbugs/spotbugs](https://github.com/spotbugs/spotbugs).
 
-## 6. Deeplinks
+## 6. Deep Links
 
 Test [/.well-known/assetlinks.json](https://developer.android.com/training/app-links/verify-android-applinks) using [developers.google.com/digital-asset-links/tools/generator](https://developers.google.com/digital-asset-links/tools/generator).
 
-Sometimes, deeplinks can bypass authentication, including biometrics.
+Sometimes,  links can bypass authentication, including biometrics.
 
-Create an HTML template to manually test deeplinks:
+Create an HTML template to manually test deep links:
 
 ```bash
-mkdir android_deeplinks
+mkdir android_deep_links
 
 # multiple URL schemes
 
-for scheme in $(cat url_schemes.txt); do for url in $(cat urls.txt | grep -Poi "${scheme}\:\/\/.+"); do if [[ ! -z $url ]]; then echo -n "<a href='${url}'>${url}</a>\n<br><br>\n" | tee -a "android_deeplinks/${scheme}_deeplinks.html"; fi; done; done
+for scheme in $(cat url_schemes.txt); do for url in $(cat urls.txt | grep -Poi "${scheme}\:\/\/.+"); do if [[ ! -z $url ]]; then echo -n "<a href='${url}'>${url}</a>\n<br><br>\n" | tee -a "android_deep_links/${scheme}_deep_links.html"; fi; done; done
 
 # single URL scheme
 
-scheme="somescheme"; for string in $(cat urls.txt | grep -Poi "${scheme}\:\/\/.+"); do echo -n "<a href='${string}'>${string}</a>\n<br><br>\n"; done | tee -a "android_deeplinks/${scheme}_deeplinks.html"
+scheme="somescheme"; for string in $(cat urls.txt | grep -Poi "${scheme}\:\/\/.+"); do echo -n "<a href='${string}'>${string}</a>\n<br><br>\n"; done | tee -a "android_deep_links/${scheme}_deep_links.html"
 
-python3 -m http.server 9000 --directory android_deeplinks
+python3 -m http.server 9000 --directory android_deep_links
 ```
 
 For `url_schemes.txt` see section [AndroidManifest.xml](#androidmanifestxml), and for `urls.txt` see section [4. Inspect Files](#4-inspect-files).
 
 ---
 
-Open a deeplink using ADB:
+Open a deep link using ADB:
 
 ```
 adb shell am start -W -a android.intent.action.VIEW -d 'somescheme://com.someapp.dev/somepath?somekey=somevalue'
@@ -904,7 +904,7 @@ I prefer to use the built-in method in [Objection](#bypasses).
 
 ---
 
-Monitor all intent calls, including deeplinks, using [android-intent-monitor](https://codeshare.frida.re/@ivan-sincek/android-intent-monitor) script:
+Monitor all intent calls, including deep links, using [android-intent-monitor](https://codeshare.frida.re/@ivan-sincek/android-intent-monitor) script:
 
 ```fundamental
 frida -U -no-pause -l android-intent-monitor.js -f com.someapp.dev
@@ -1084,7 +1084,7 @@ Examine the launch intent (main activity):
 run app.package.launchintent com.someapp.dev
 ```
 
-List browsable URIs (deeplinks):
+List browsable URIs (deep links):
 
 ```
 run scanner.activity.browsable -a com.someapp.dev
@@ -1372,7 +1372,7 @@ Access tokens should be short lived, and if possible, invalidated on logout.
 
 Don't forget to test widgets, push notifications, and Firebase.
 
-Sometimes, deeplinks and widgets can bypass authentication, including biometrics.
+Sometimes, deep links and widgets can bypass authentication, including biometrics.
 
 Only if explicitly allowed, try flooding 3rd party APIs to cause possible monetary damage to the company, or denial-of-service (DoS) by exhausting the allowed quotas/limits.
 
