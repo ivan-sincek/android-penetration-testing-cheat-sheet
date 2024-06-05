@@ -89,6 +89,8 @@ Future plans:
 
 **6. [Deep Links](#6-deep-links)**
 
+* [Android App Link Verification Tester](#android-app-link-verification-tester)
+
 **7. [WebViews](#7-webviews)**
 
 **8. [Frida](#8-frida)**
@@ -462,8 +464,9 @@ Things to look for in AndroidManifest.xml:
 * `android:allowBackup="true"` - app should not backup any sensitive data,
 * `usesCleartextTraffic` - app should not use a cleartext HTTP communication,
 * `networkSecurityConfig` - inspect network security configurations for SSL/TLS pinnings, whitelisted domains, and `cleartextTrafficPermitted="true"` inside `decoded/res/xml/` directory,
-* `exported="true"` - enumerate exported activities, content providers, broadcast receivers, and services,
 * `permission` - look for unused [custom] permissions, and permissions with weak [protection](https://developer.android.com/guide/topics/manifest/permission-element) (`protectionLevel`),
+* `exported="true"` - enumerate exported activities, content providers, broadcast receivers, and services,
+* `android:autoVerify="true"` - deep links missing this attribute might be vulnerable to deep link hijacking,
 * etc.
 
 ---
@@ -750,9 +753,11 @@ Test [/.well-known/assetlinks.json](https://developer.android.com/training/app-l
 
 Sometimes, deep links can bypass authentication, including biometrics.
 
-Don't forget to test a deep link for a cross-site scripting (XSS) vulnerability in case it is opening a WebView.
+Don't forget to test a deep link for a cross-site scripting (XSS), open redirect, etc., in case it is opening a WebView.
 
-Create an HTML template to manually test deep links:
+---
+
+Create an HTML template to manually test deep links (see also ##):
 
 ```bash
 mkdir android_deep_links
@@ -770,10 +775,42 @@ python3 -m http.server 9000 --directory android_deep_links
 
 For `url_schemes.txt` see section [AndroidManifest.xml](#androidmanifestxml), and for `urls.txt` see section [4. Inspect Files](#4-inspect-files).
 
+---
+
 Open a deep link using ADB:
 
 ```
 adb shell am start -W -a android.intent.action.VIEW -d 'somescheme://com.someapp.dev/somepath?somekey=somevalue'
+```
+
+### Android App Link Verification Tester
+
+Install the tool:
+
+```bash
+git clone https://github.com/inesmartins/Android-App-Link-Verification-Tester && cd Android-App-Link-Verification-Tester
+
+pip3 install -r requirements.txt
+```
+
+Decode an APK using [Apktool](#decode). You should now see the `decoded` directory.
+
+Get deep links:
+
+```fundamental
+python3 deeplink_analyser.py -op list-applinks -m decoded/AndroidManifest.xml -s decoded/res/values/strings.xml
+```
+
+Build PoC:
+
+```fundamental
+python3 deeplink_analyser.py -op build-poc -m decoded/AndroidManifest.xml -s decoded/res/values/strings.xml
+```
+
+Verify app links (valid app links must have `http[s]` scheme):
+
+```fundamental
+python3 deeplink_analyser.py -op verify-applinks -apk base.apk -p com.someapp.dev
 ```
 
 ## 7. WebViews
