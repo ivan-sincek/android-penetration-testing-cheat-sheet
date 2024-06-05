@@ -460,7 +460,7 @@ Always inspect `decoded/AndroidManifest.xml` content for possible misconfigurati
 Things to look for in AndroidManifest.xml:
 
 * `minSdkVersion`, `targetSDKVersion`, and `maxSdkVersion` - app should not support outdated and vulnerable Android releases,
-* `debuggable="true"` - production app (i.e. build) should not be debuggable,
+* `debuggable="true"` - production app (i.e., build) should not be debuggable,
 * `android:allowBackup="true"` - app should not backup any sensitive data,
 * `usesCleartextTraffic="true"` - app should not use a cleartext HTTP communication,
 * `networkSecurityConfig` - inspect network security configurations for SSL/TLS pinnings, whitelisted domains, and `cleartextTrafficPermitted="true"` inside `decoded/res/xml/` directory,
@@ -555,7 +555,7 @@ After you finish testing \[and logout\], don't forget to [download](#downloadupl
 
 There will be some false positive results since the regular expressions are not perfect. I prefer to use `rabin2` over `strings` because it can read Unicode characters.
 
-On your Android device, try to modify app's files to test the filesystem checksum validation, i.e. to test the file integrity validation.
+On your Android device, try to modify app's files to test the filesystem checksum validation, i.e., to test the file integrity validation.
 
 ### Single File
 
@@ -1291,7 +1291,7 @@ jadx --threads-count $(grep -c 'processor' /proc/cpuinfo) -d /root/Desktop/sourc
 
 Decompiling a JAR will give you a different directory structure, so you might want to decompile both, base.jar and base.apk.
 
-Make sure to specify a full path to the output directory; otherwise, it will default to `/usr/share/jadx/bin/` directory (i.e. to the root directory).
+Make sure to specify a full path to the output directory; otherwise, it will default to `/usr/share/jadx/bin/` directory (i.e., to the root directory).
 
 Make sure to specify a full path to the base.jar or [base.apk](#pull-an-apk-baseapk); otherwise, JADX might not recognize it.
 
@@ -1435,7 +1435,7 @@ App should warn a user when taking a screenshot of sensitive data.
 
 App should warn a user that it is trivial to bypass biometrics authentication if Android device is jailbroken.
 
-Production app (i.e. build) should not be debuggable.
+Production app (i.e., build) should not be debuggable.
 
 ## 15. Useful Websites and Tools
 
