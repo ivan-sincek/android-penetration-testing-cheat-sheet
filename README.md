@@ -462,7 +462,7 @@ Things to look for in AndroidManifest.xml:
 * `minSdkVersion`, `targetSDKVersion`, and `maxSdkVersion` - app should not support outdated and vulnerable Android releases,
 * `debuggable="true"` - production app (i.e. build) should not be debuggable,
 * `android:allowBackup="true"` - app should not backup any sensitive data,
-* `usesCleartextTraffic="tru"` - app should not use a cleartext HTTP communication,
+* `usesCleartextTraffic="true"` - app should not use a cleartext HTTP communication,
 * `networkSecurityConfig` - inspect network security configurations for SSL/TLS pinnings, whitelisted domains, and `cleartextTrafficPermitted="true"` inside `decoded/res/xml/` directory,
 * `permission` - look for unused [custom] permissions, and permissions with weak [protection](https://developer.android.com/guide/topics/manifest/permission-element) (`protectionLevel`),
 * `exported="true"` - enumerate exported activities, content providers, broadcast receivers, and services,
