@@ -36,8 +36,7 @@ Future plans:
 * ~~install Burp Proxy and ZAP certificates,~~
 * modify `networkSecurityConfig` to add custom root CA certificates,
 * test widgets, push notifications, and Firebase,
-* tapjacking,
-* deep link hijacking, task hijacking, intent hijacking,
+* tapjacking, task hijacking, deep link hijacking, intent hijacking,
 * ~~intent injections, content provider injections, broadcast receiver injections, service injections,~~
 * SMALI code injection,
 * ~~WebView attacks~~,
