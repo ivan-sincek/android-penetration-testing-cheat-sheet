@@ -8,9 +8,9 @@ Check [Magisk](https://topjohnwu.github.io/Magisk) if you wish to root your Andr
 
 For help with any of the tools type `<tool_name> [-h | -hh | --help]` or `man <tool_name>`.
 
-If you didn't already, read [OWASP MSTG](https://github.com/OWASP/owasp-mastg) and [OWASP MASVS](https://github.com/OWASP/owasp-masvs). You can download OWASP MSTG checklist from [here](https://github.com/OWASP/owasp-mastg/releases).
+If you didn't already, read [OWAS MASTG](https://mas.owasp.org/MASTG/) \([GitHub](https://github.com/OWASP/owasp-mastg)\) and [OWASP MASVS](https://mas.owasp.org/MASVS/) \([GitHub](https://github.com/OWASP/owasp-masvs)\). You can download OWASP MSTG checklist from [here](https://github.com/OWASP/owasp-mastg/releases).
 
-Highly recommend reading [HackTricks - Android Applications Pentesting](https://book.hacktricks.xyz/mobile-pentesting/android-app-pentesting).
+I also recommend reading [HackTricks - Android Applications Pentesting](https://book.hacktricks.xyz/mobile-pentesting/android-app-pentesting).
 
 __In most cases, to be eligible for a bug bounty reward, you need to exploit a vulnerability with non-root priviledges, possibly building your own "malicious" app.__
 
@@ -460,6 +460,7 @@ Things to look for in AndroidManifest.xml:
 * `minSdkVersion`, `targetSDKVersion`, and `maxSdkVersion` - app should not support outdated and vulnerable Android releases,
 * `debuggable="true"` - production app (i.e. build) should not be debuggable,
 * `android:allowBackup="true"` - app should not backup any sensitive data,
+* `usesCleartextTraffic` - app should not use a cleartext HTTP communication,
 * `networkSecurityConfig` - inspect network security configurations for SSL/TLS pinnings, whitelisted domains, and `cleartextTrafficPermitted="true"` inside `decoded/res/xml/` directory,
 * `exported="true"` - enumerate exported activities, content providers, broadcast receivers, and services,
 * `permission` - look for unused [custom] permissions, and permissions with weak [protection](https://developer.android.com/guide/topics/manifest/permission-element) (`protectionLevel`),
@@ -547,7 +548,7 @@ SharedPreferences is unencrypted and backed up by default, and as such, should n
 
 Inspect memory dumps, binaries, files inside [a decompiled APK](#11-decompile-an-apk), files inside the app specific directories, or any other files.
 
-After you finish testing \[and logout\], don't forget to [download](#downloadupload-files-and-directories) the app specific directories and inspect all the files inside. Inspect what is new and what still persists after logout.
+After you finish testing \[and logout\], don't forget to [download](#downloadupload-files-and-directories) the app specific directories and inspect all the files inside. Inspect what is new and what still persists after the logout.
 
 There will be some false positive results since the regular expressions are not perfect. I prefer to use `rabin2` over `strings` because it can read Unicode characters.
 
@@ -747,7 +748,9 @@ More about the tool at [spotbugs/spotbugs](https://github.com/spotbugs/spotbugs)
 
 Test [/.well-known/assetlinks.json](https://developer.android.com/training/app-links/verify-android-applinks) using [developers.google.com/digital-asset-links/tools/generator](https://developers.google.com/digital-asset-links/tools/generator).
 
-Sometimes,  links can bypass authentication, including biometrics.
+Sometimes, deep links can bypass authentication, including biometrics.
+
+Don't forget to test a deep link for a cross-site scripting (XSS) vulnerability in case it is opening a WebView.
 
 Create an HTML template to manually test deep links:
 
@@ -766,8 +769,6 @@ python3 -m http.server 9000 --directory android_deep_links
 ```
 
 For `url_schemes.txt` see section [AndroidManifest.xml](#androidmanifestxml), and for `urls.txt` see section [4. Inspect Files](#4-inspect-files).
-
----
 
 Open a deep link using ADB:
 
@@ -830,6 +831,18 @@ Arbitrary file read using a cross-site scripting (XSS):
     xhr.send();
 </script>
 ```
+
+After you finish testing \[and logout\], don't forget to [download](#downloadupload-files-and-directories) the app specific directories and inspect all the files inside. Inspect what is new and what still persists after the logout.
+
+WebView specific directories to look for:
+
+* `app_webview`
+* `blob_storage`
+* `Cookies`
+* `pref_store`
+* `Service Worker`
+* `Session Storage`
+* `Web Data`
 
 ## 8. Frida
 
@@ -1351,7 +1364,7 @@ Always look for created or cached files, images/screenshots, etc.
 
 Sensitive files such as know your customer (KYC) and similar, should not persists in the app specific directories on the user device after the file upload. Sensitive files should not be stored in `/tmp/` directory nor similar system-wide directories.
 
-Images/screenshots path:
+Images and screenshots path:
 
 ```fundamental
 cd /mnt/sdcard/DCIM/
@@ -1359,6 +1372,8 @@ cd /storage/emulated/0/DCIM/
 
 cd /mnt/media_rw/3664-6132/DCIM/
 cd /storage/3664-6132/DCIM/
+
+cd /data/system_ce/0/snapshots/
 ```
 
 Don't confuse `/mnt/sdcard/` path with a real removable storage path because sometimes such path is device specific, so you will need to search it on the internet or extract it using some Java code. In my case it is `/mnt/media_rw/3664-6132/` path.
