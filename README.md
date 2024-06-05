@@ -8,7 +8,7 @@ Check [Magisk](https://topjohnwu.github.io/Magisk) if you wish to root your Andr
 
 For help with any of the tools type `<tool_name> [-h | -hh | --help]` or `man <tool_name>`.
 
-If you didn't already, read [OWAS MASTG](https://mas.owasp.org/MASTG/) \([GitHub](https://github.com/OWASP/owasp-mastg)\) and [OWASP MASVS](https://mas.owasp.org/MASVS/) \([GitHub](https://github.com/OWASP/owasp-masvs)\). You can download OWASP MSTG checklist from [here](https://github.com/OWASP/owasp-mastg/releases).
+If you didn't already, read [OWAS MASTG](https://mas.owasp.org/MASTG/) \([GitHub](https://github.com/OWASP/owasp-mastg)\) and [OWASP MASVS](https://mas.owasp.org/MASVS/) \([GitHub](https://github.com/OWASP/owasp-masvs)\). You can download OWASP MASTG checklist from [here](https://github.com/OWASP/owasp-mastg/releases).
 
 I also recommend reading [HackTricks - Android Applications Pentesting](https://book.hacktricks.xyz/mobile-pentesting/android-app-pentesting).
 
