@@ -466,6 +466,7 @@ Things to look for in AndroidManifest.xml:
 * `networkSecurityConfig` - inspect network security configurations for SSL/TLS pinnings, whitelisted domains, and `cleartextTrafficPermitted="true"` inside `decoded/res/xml/` directory,
 * `permission` - look for unused [custom] permissions, and permissions with weak [protection](https://developer.android.com/guide/topics/manifest/permission-element) (`protectionLevel`),
 * `exported="true"` - enumerate exported activities, content providers, broadcast receivers, and services,
+* `taskAffinity` - activities missing this attribute might be vulnerable to taskjacking,
 * `android:autoVerify="true"` - deep links missing this attribute might be vulnerable to deep link hijacking,
 * etc.
 
@@ -785,7 +786,7 @@ adb shell am start -W -a android.intent.action.VIEW -d 'somescheme://com.someapp
 
 ### Android App Link Verification Tester
 
-Install the tool:
+Install:
 
 ```bash
 git clone https://github.com/inesmartins/Android-App-Link-Verification-Tester && cd Android-App-Link-Verification-Tester
@@ -1179,12 +1180,6 @@ run scanner.provider.injection -a com.someapp.dev
 run scanner.provider.sqltables -a com.someapp.dev
 
 run scanner.provider.traversal -a com.someapp.dev
-```
-
-List all accessible SQL tables through content provider SQLi:
-
-```fundamental
-run scanner.provider.sqltables -a com.someapp.dev
 ```
 
 Content provider CRUD controls and more:
