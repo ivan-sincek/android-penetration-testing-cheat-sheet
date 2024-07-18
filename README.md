@@ -1442,6 +1442,7 @@ Production app (i.e., build) should not be debuggable.
 | [streaak/keyhacks](https://github.com/streaak/keyhacks) | Validate various API keys. |
 | [zxing.org/w/decode.jspx](https://zxing.org/w/decode.jspx) | Decode QR codes. |
 | [odinforum.com](https://odinforum.com/discussion/11/latest-versions-of-odin-flashing-tool) | Firmware flashing tool for Samsung devices. |
+| [developer.samsung.com/android-usb-driver](https://developer.samsung.com/android-usb-driver) | USB driver for Samsung devices. |
 | [samfrew.com](https://samfrew.com) | Firmwares for Samsung devices. |
 | [xdaforums.com](https://xdaforums.com/t/magisk-the-magic-mask-for-android.3473445) | Mobile software development forum. |
 
