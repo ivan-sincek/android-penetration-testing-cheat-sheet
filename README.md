@@ -1272,19 +1272,19 @@ run app.service.send com.someapp.dev com.someapp.dev.SomeService --msg what arg1
 
 Use `--help` to see more options.
 
-## 10. Intent Injections
+## 11. Intent Injections
 
 Find out how to perform intent injections using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk#implicit-intent-injection-testing).
 
-## 11. Taskjacking
+## 12. Taskjacking
 
 Find out how to perform [taskjacking](https://developer.android.com/privacy-and-security/risks/strandhogg) using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk#task-hijacking-testing).
 
-## 12. Tapjacking
+## 13. Tapjacking
 
 Find out how to perform [tapjacking](https://developer.android.com/privacy-and-security/risks/tapjacking) using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk#tapjacking-testing).
 
-## 11. Decompile an APK
+## 14. Decompile an APK
 
 Decompile an APK:
 
@@ -1326,7 +1326,7 @@ Resolve `java.lang.OutOfMemoryError` issue by modifying `/usr/bin/d2j-dex2jar` a
 java -Xms1024m -Xmx4096m -classpath "${_classpath}" "com.googlecode.dex2jar.tools.Dex2jarCmd" "$@"
 ```
 
-## 12. Repackage an APK
+## 15. Repackage an APK
 
 ### Decode
 
@@ -1384,7 +1384,7 @@ apksigner verify repackaged.apk
 jarsigner -verify -verbose -certs repackaged.apk
 ```
 
-## 13. Miscellaneous
+## 16. Miscellaneous
 
 ### Monitor the System Log
 
@@ -1432,7 +1432,7 @@ cd /data/system_ce/0/snapshots/
 
 Don't confuse `/mnt/sdcard/` path with a real removable storage path because sometimes such path is device specific, so you will need to search it on the internet or extract it using some Java code. In my case it is `/mnt/media_rw/3664-6132/` path.
 
-## 14. Tips and Security Best Practices
+## 17. Tips and Security Best Practices
 
 Bypass any keyboard restriction by copying and pasting data into an input field.
 
@@ -1454,7 +1454,7 @@ App should warn a user that it is trivial to bypass biometrics authentication if
 
 Production app (i.e., build) should not be debuggable.
 
-## 15. Useful Websites and Tools
+## 18. Useful Websites and Tools
 
 | URL | Description |
 | --- | --- |
@@ -1466,7 +1466,7 @@ Production app (i.e., build) should not be debuggable.
 | [samfrew.com](https://samfrew.com) | Firmwares for Samsung devices. |
 | [xdaforums.com](https://xdaforums.com/t/magisk-the-magic-mask-for-android.3473445) | Mobile software development forum. |
 
-## 16. Vulnerable Apps
+## 19. Vulnerable Apps
 
 Vulnerable apps for learning purposes:
 
