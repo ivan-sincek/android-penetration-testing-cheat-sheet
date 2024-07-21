@@ -12,9 +12,9 @@ If you didn't already, read [OWAS MASTG](https://mas.owasp.org/MASTG/) \([GitHub
 
 I also recommend reading [HackTricks - Android Applications Pentesting](https://book.hacktricks.xyz/mobile-pentesting/android-app-pentesting).
 
-__In most cases, to be eligible for a bug bounty reward, you need to exploit a vulnerability with non-root priviledges, possibly building your own "malicious" app.__
+__In most cases, to be eligible for a bug bounty reward, you need to exploit a vulnerability with non-root priviledges, possibly building your own "malicious" PoC app.__
 
-Find out more about my own "malicious" app from my other [project](https://github.com/ivan-sincek/malware-apk).
+Find out more about the "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk).
 
 Websites that you should use while writing the report:
 
@@ -38,13 +38,9 @@ Future plans:
 * ~~install Burp Proxy and ZAP certificates,~~
 * modify `networkSecurityConfig` to add custom root CA certificates,
 * test widgets, push notifications, and Firebase,
-* tapjacking, task hijacking, deep link hijacking, intent hijacking,
-* ~~intent injections, content provider injections, broadcast receiver injections, service injections,~~
 * SMALI code injection,
-* ~~WebView attacks~~,
 * Flutter attacks,
-* create more Frida scripts,
-* add custom APKs to automate exploitation of certain vulnerabilities.
+* create more Frida scripts.
 
 ## Table of Contents
 
@@ -93,6 +89,8 @@ Future plans:
 
 * [Android App Link Verification Tester](#android-app-link-verification-tester)
 
+* [Deep Link Hijacking](#deep-link-hijacking)
+
 **7. [WebViews](#7-webviews)**
 
 **8. [Frida](#8-frida)**
@@ -109,24 +107,30 @@ Future plans:
 * [Content Providers](#content-providers)
 * [Broadcast Receivers](#broadcast-receivers)
 
-**11. [Decompile an APK](#11-decompile-an-apk)**
+**11. [Intent Injections](#11-intent-injections)**
 
-**12. [Repackage an APK](#12-repackage-an-apk)**
+**12. [Taskjacking](#12-taskjacking)**
+
+**13. [Tapjacking](#13-tapjacking)**
+
+**14. [Decompile an APK](#14-decompile-an-apk)**
+
+**15. [Repackage an APK](#15-repackage-an-apk)**
 
 * [Decode](#decode)
 * [Repackage](#repackage)
 * [Code Sign](#code-sign)
 
-**13. [Miscellaneous](#13-miscellaneous)**
+**16. [Miscellaneous](#16-miscellaneous)**
 
 * [Monitor the System Log](#monitor-the-system-log)
 * [Monitor File Changes](#monitor-file-changes)
 
-**14. [Tips and Security Best Practices](#14-tips-and-security-best-practices)**
+**17. [Tips and Security Best Practices](#17-tips-and-security-best-practices)**
 
-**15. [Useful Websites and Tools](#15-useful-websites-and-tools)**
+**18. [Useful Websites and Tools](#18-useful-websites-and-tools)**
 
-**16. [Vulnerable Apps](#16-vulnerable-apps)**
+**19. [Vulnerable Apps](#19-vulnerable-apps)**
 
 ## 0. Install Tools
 
@@ -552,7 +556,7 @@ SharedPreferences is unencrypted and backed up by default, and as such, should n
 
 ## 4. Inspect Files
 
-Inspect memory dumps, binaries, files inside [a decompiled APK](#11-decompile-an-apk), files inside the app specific directories, or any other files.
+Inspect memory dumps, binaries, files inside [a decompiled APK](#14-decompile-an-apk), files inside the app specific directories, or any other files.
 
 After you finish testing \[and logout\], don't forget to [download](#downloadupload-files-and-directories) the app specific directories and inspect all the files inside. Inspect what is new and what still persists after the logout.
 
@@ -728,7 +732,7 @@ SAST tool for identifying security vulnerabilities inside an APK, technically, i
 d2j-dex2jar base.apk -o base.jar
 ```
 
-\[2\] Decompile the JAR using [jadx](#11-decompile-an-apk). You should now see the `source_jar` directory.
+\[2\] Decompile the JAR using [jadx](#14-decompile-an-apk). You should now see the `source_jar` directory.
 
 \[3\] Download the latest version of the tool from [GitHub](https://github.com/spotbugs/spotbugs/releases), unpack the archive, and open your preferred console from the `/lib/` directory.
 
@@ -815,6 +819,10 @@ Verify app links (valid app links have `http[s]` scheme):
 ```fundamental
 python3 deeplink_analyser.py -op verify-applinks -apk base.apk -p com.someapp.dev
 ```
+
+### Deep Link Hijacking
+
+Find out how to perform deep link hijacking using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk?tab=readme-ov-file#implicit-intent-testing).
 
 ## 7. WebViews
 
@@ -1142,7 +1150,7 @@ List browsable URIs (deep links):
 run scanner.activity.browsable -a com.someapp.dev
 ```
 
-You need to [reverse engineer](#11-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the intent to exploit it.
+You need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the intent to exploit it.
 
 Start an activity:
 
@@ -1158,7 +1166,7 @@ __In Drozer, you cannot pass arrays, lists, objects, etc., to an intent due to t
 
 ### Content Providers
 
-You need to [reverse engineer](#11-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the content provider to exploit it.
+You need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the content provider to exploit it.
 
 Read more about content providers [here](https://developer.android.com/guide/topics/providers/content-providers).
 
@@ -1204,7 +1212,7 @@ Use `--help` to see more options.
 
 ### Broadcast Receivers
 
-You need to [reverse engineer](#11-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the broadcast receiver to exploit it.
+You need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the broadcast receiver to exploit it.
 
 Read more about broadcasts [here](https://developer.android.com/develop/background-work/background-tasks/broadcasts).
 
@@ -1240,7 +1248,7 @@ Use `--help` to see more options.
 
 ### Services
 
-You will to [reverse engineer](#11-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the service to exploit it.
+You will to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the service to exploit it.
 
 Read more about services [here](https://developer.android.com/develop/background-work/services).
 
@@ -1263,6 +1271,18 @@ run app.service.send com.someapp.dev com.someapp.dev.SomeService --msg what arg1
 `--bundle-as-obj` helps you to parse a special type of return data. Read more about the Bundle class [here](https://developer.android.com/reference/android/os/Bundle).
 
 Use `--help` to see more options.
+
+## 10. Intent Injections
+
+Find out how to perform intent injections using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk?tab=readme-ov-file#implicit-intent-injection-testing).
+
+## 11. Taskjacking
+
+Find out how to perform [taskjacking](https://developer.android.com/privacy-and-security/risks/strandhogg) using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk?tab=readme-ov-file#task-hijacking-testing).
+
+## 12. Tapjacking
+
+Find out how to perform [tapjacking](https://developer.android.com/privacy-and-security/risks/tapjacking) using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk?tab=readme-ov-file#tapjacking).
 
 ## 11. Decompile an APK
 
