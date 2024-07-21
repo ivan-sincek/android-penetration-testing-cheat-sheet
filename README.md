@@ -822,7 +822,7 @@ python3 deeplink_analyser.py -op verify-applinks -apk base.apk -p com.someapp.de
 
 ### Deep Link Hijacking
 
-Find out how to perform deep link hijacking using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk?tab=readme-ov-file#implicit-intent-testing).
+Find out how to perform deep link hijacking using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk#implicit-intent-testing).
 
 ## 7. WebViews
 
@@ -1274,15 +1274,15 @@ Use `--help` to see more options.
 
 ## 10. Intent Injections
 
-Find out how to perform intent injections using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk?tab=readme-ov-file#implicit-intent-injection-testing).
+Find out how to perform intent injections using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk#implicit-intent-injection-testing).
 
 ## 11. Taskjacking
 
-Find out how to perform [taskjacking](https://developer.android.com/privacy-and-security/risks/strandhogg) using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk?tab=readme-ov-file#task-hijacking-testing).
+Find out how to perform [taskjacking](https://developer.android.com/privacy-and-security/risks/strandhogg) using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk#task-hijacking-testing).
 
 ## 12. Tapjacking
 
-Find out how to perform [tapjacking](https://developer.android.com/privacy-and-security/risks/tapjacking) using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk?tab=readme-ov-file#tapjacking).
+Find out how to perform [tapjacking](https://developer.android.com/privacy-and-security/risks/tapjacking) using a "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk#tapjacking-testing).
 
 ## 11. Decompile an APK
 
