@@ -12,7 +12,7 @@ If you didn't already, read [OWAS MASTG](https://mas.owasp.org/MASTG/) \([GitHub
 
 I also recommend reading [HackTricks - Android Applications Pentesting](https://book.hacktricks.xyz/mobile-pentesting/android-app-pentesting).
 
-__In most cases, to be eligible for a bug bounty reward, you need to exploit a vulnerability with non-root priviledges, possibly building your own "malicious" PoC app.__
+__In most cases, to be eligible for a bug bounty reward, you need to exploit a vulnerability with non-root privileges, possibly building your own "malicious" PoC app.__
 
 Find out more about my "malicious" PoC app from my other [project](https://github.com/ivan-sincek/malware-apk).
 
