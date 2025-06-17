@@ -2,7 +2,7 @@
 
 This is more of a checklist for myself. May contain useful tips and tricks. **Still need to add a lot of things.**
 
-Everything was tested on Kali Linux v2024.2 (64-bit) and Samsung A5 (2017) with Android OS v8.0 (Oreo) and Magisk root v25.2.
+Everything was tested on Kali Linux v2024.2 (64-bit), Samsung A5 (2017) with Android OS v8.0 (Oreo), and Samsung Galaxy Note S20 Ultra with Android OS v13.0 (Tiramisu) and Magisk root v29.0.
 
 For help with any of the tools type `<tool_name> [-h | -hh | --help]` or `man <tool_name>`.
 
@@ -135,11 +135,15 @@ Future plans:
 
 ## -1. Rooting
 
-Check [Magisk](https://topjohnwu.github.io/Magisk) if you wish to root your Android device. I have no [liability](https://github.com/ivan-sincek/android-penetration-testing-cheat-sheet/blob/main/LICENSE) over your actions.
+**Rooting an Android device will void its warranty. I have no [liability](https://github.com/ivan-sincek/android-penetration-testing-cheat-sheet/blob/main/LICENSE) over your actions.**
+
+### Magisk
+
+Root your Android device using [Magisk](https://topjohnwu.github.io/Magisk) root.
 
 I only use Samsung devices and follow the [Magisk guide for Samsung devices](https://topjohnwu.github.io/Magisk/install.html#samsung-devices).
 
-While flashing the firmware on Samsung devices, make sure the bootloader shows:
+While flashing the firmware on Samsung devices, make sure the bootloader shows the following:
 
 ```fundamental
 * FRP LOCK: OFF
@@ -157,7 +161,7 @@ To perform a full OEM unlock:
 * enable OEM unlocking in the developer options,
 * then, in the bootloader, long-press the volume up button to enter the screen that allows you to permanently unlock the bootloader.
 
-To ensure Knox Guard (KG) status is set to checking, make sure the device is connected to the internet, e.g., via WiFi.
+To ensure Knox Guard (KG) status is set to checking, make sure your Android device is connected to the internet, e.g., via WiFi.
 
 The rest is easy.
 
@@ -336,11 +340,21 @@ List attached devices:
 adb devices
 ```
 
-Connect to a remote device using [WiFi ADB](#wifi-adb---debug-over-air):
+On your Android device, in developer options, enable wireless debugging to use ADB over WiFi.
+
+<p align="center"><img src="https://github.com/ivan-sincek/android-penetration-testing-cheat-sheet/blob/main/img/wireless_debugging.jpg" alt="Wireless debugging" height="600em"></p>
+
+<p align="center">Figure 5 - Wireless debugging</p>
+
+Connect to a remote device using ADB over WiFi:
 
 ```fundamental
-adb connect 192.168.1.10:5555
+adb pair 192.168.1.10:1337
+
+adb connect 192.168.1.10:3301
 ```
+
+On older Android devices, use [WiFi ADB](#wifi-adb---debug-over-air).
 
 Open a system shell as non-root:
 
@@ -677,7 +691,7 @@ To inspect the content, navigate to `Browse Data` tab, expand `Table` dropdown m
 
 <p align="center"><img src="https://github.com/ivan-sincek/android-penetration-testing-cheat-sheet/blob/main/img/sqlite.png" alt="SQLite"></p>
 
-<p align="center">Figure 5 - DB Browser for SQLite</p>
+<p align="center">Figure 6 - DB Browser for SQLite</p>
 
 To inspect and/or edit database files on your Android device directly, use [SQLite 3](#magisk-sqlite-3); [ADB](#android-debug-bridge-adb) to your Android device and run the following commands:
 
@@ -773,7 +787,7 @@ java -jar spotbugs.jar -gui
 
 <p align="center"><img src="https://github.com/ivan-sincek/android-penetration-testing-cheat-sheet/blob/main/img/spotbugs.jpg" alt="SpotBugs"></p>
 
-<p align="center">Figure 6 - SpotBugs</p>
+<p align="center">Figure 7 - SpotBugs</p>
 
 Run without the GUI:
 
@@ -1478,7 +1492,7 @@ chmod +x /data/local/tmp/fsmon-and-arm
 
 Always look for created or cached files, images/screenshots, etc.
 
-Sensitive files such as know your customer (KYC) and similar, should not persists in the app specific directories on the user device after the file upload. Sensitive files should not be stored in `/tmp/` directory nor similar system-wide directories.
+Sensitive files such as know your customer (KYC) and similar, should not persists in the app specific directories on user's device after the file upload. Sensitive files should not be stored in `/tmp/` directory nor similar system-wide directories.
 
 Images and screenshots path:
 
@@ -1512,7 +1526,7 @@ App should not disclose sensitive data in the predictive text (due to incorrectl
 
 App should warn a user when taking a screenshot of sensitive data.
 
-App should warn a user that it is trivial to bypass biometrics authentication if Android device is jailbroken.
+App should warn a user that it is trivial to bypass biometrics authentication if his Android device is jailbroken.
 
 Production app (i.e., build) should not be debuggable.
 
