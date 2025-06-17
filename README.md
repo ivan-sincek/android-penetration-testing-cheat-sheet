@@ -173,7 +173,7 @@ Download [Magisk Frida](https://github.com/ViRb3/magisk-frida/releases), then, o
 
 <p align="center"><img src="https://github.com/ivan-sincek/android-penetration-testing-cheat-sheet/blob/main/img/magisk_install_from_storage.jpg" alt="Magisk Frida" height="600em"></p>
 
-<p align="center">Figure 2 - Magisk Frida</p>
+<p align="center">Figure 1 - Magisk Frida</p>
 
 ### Magisk SQLite 3
 
@@ -187,7 +187,7 @@ Install [WiFi ADB - Debug Over Air](https://play.google.com/store/apps/details?i
 
 <p align="center"><img src="https://github.com/ivan-sincek/android-penetration-testing-cheat-sheet/blob/main/img/wifi_adb.jpg" alt="WiFi ADB - Debug Over Air" height="600em"></p>
 
-<p align="center">Figure 1 - WiFi ADB - Debug Over Air</p>
+<p align="center">Figure 2 - WiFi ADB - Debug Over Air</p>
 
 ### BusyBox
 
