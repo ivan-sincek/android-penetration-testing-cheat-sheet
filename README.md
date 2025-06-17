@@ -47,9 +47,9 @@ Future plans:
 
 **0. [Install Tools](#0-install-tools)**
 
-* [WiFi ADB - Debug Over Air](#wifi-adb---debug-over-air)
 * [Magisk Frida](#magisk-frida)
 * [Magisk SQLite 3](#magisk-sqlite-3)
+* [WiFi ADB - Debug Over Air](#wifi-adb---debug-over-air)
 * [BusyBox](#busybox)
 * [Kali Linux Tools](#kali-linux-tools)
 * [Java](#java)
@@ -143,7 +143,7 @@ Root your Android device using [Magisk](https://topjohnwu.github.io/Magisk) root
 
 I only use Samsung devices and follow the [Magisk guide for Samsung devices](https://topjohnwu.github.io/Magisk/install.html#samsung-devices).
 
-While flashing the firmware on Samsung devices, make sure the bootloader shows the following:
+Before flashing the firmware on Samsung devices, make sure the bootloader shows the following:
 
 ```fundamental
 * FRP LOCK: OFF
@@ -167,14 +167,6 @@ The rest is easy.
 
 ## 0. Install Tools
 
-### WiFi ADB - Debug Over Air
-
-Install [WiFi ADB - Debug Over Air](https://play.google.com/store/apps/details?id=com.ttxapps.wifiadb). To be used with [ADB](#android-debug-bridge-adb).
-
-<p align="center"><img src="https://github.com/ivan-sincek/android-penetration-testing-cheat-sheet/blob/main/img/wifi_adb.jpg" alt="WiFi ADB - Debug Over Air" height="600em"></p>
-
-<p align="center">Figure 1 - WiFi ADB - Debug Over Air</p>
-
 ### Magisk Frida
 
 Download [Magisk Frida](https://github.com/ViRb3/magisk-frida/releases), then, open your [Magisk](https://topjohnwu.github.io/Magisk) app and install Frida by importing the downloaded archive.
@@ -186,6 +178,16 @@ Download [Magisk Frida](https://github.com/ViRb3/magisk-frida/releases), then, o
 ### Magisk SQLite 3
 
 Download [Magisk SQLite 3](https://github.com/ivan-sincek/android-penetration-testing-cheat-sheet/tree/main/binaries), then, open your [Magisk](https://topjohnwu.github.io/Magisk) app and install SQLite 3 by importing the downloaded archive.
+
+### WiFi ADB - Debug Over Air
+
+Deprecated. Newer Android devices have a wireless debugging feature in developer options.
+
+Install [WiFi ADB - Debug Over Air](https://play.google.com/store/apps/details?id=com.ttxapps.wifiadb). To be used with [ADB](#android-debug-bridge-adb).
+
+<p align="center"><img src="https://github.com/ivan-sincek/android-penetration-testing-cheat-sheet/blob/main/img/wifi_adb.jpg" alt="WiFi ADB - Debug Over Air" height="600em"></p>
+
+<p align="center">Figure 1 - WiFi ADB - Debug Over Air</p>
 
 ### BusyBox
 
