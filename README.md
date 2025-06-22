@@ -873,7 +873,7 @@ Hijacking a deep link after a successful login on a website can easly lead to se
 
 **Properly implemented app links cannot be hijacked.**
 
-To hijack a deep link, specify it in [AndroidManifest.xml](https://github.com/ivan-sincek/malware-apk/blob/main/src/Malware/app/src/main/AndroidManifest.xml#L48) inside a "malicious" PoC app:
+To hijack a deep link, specify it in [AndroidManifest.xml](https://github.com/ivan-sincek/malware-apk/blob/main/src/Malware/app/src/main/AndroidManifest.xml#L49) inside a "malicious" PoC app:
 
 ```xml
 <data
@@ -882,7 +882,7 @@ To hijack a deep link, specify it in [AndroidManifest.xml](https://github.com/iv
 />
 ```
 
-Increasing the [priority](https://github.com/ivan-sincek/malware-apk/blob/main/src/Malware/app/src/main/AndroidManifest.xml#L44) might also increase your chances of hijacking a deep link:
+Increasing the [priority](https://github.com/ivan-sincek/malware-apk/blob/main/src/Malware/app/src/main/AndroidManifest.xml#L45) might also increase your chances of hijacking a deep link:
 
 ```xml
 <intent-filter android:priority="999">
@@ -890,7 +890,7 @@ Increasing the [priority](https://github.com/ivan-sincek/malware-apk/blob/main/s
 
 After that, you will need to find a way to trigger your target deep link.
 
-Find out how to perform deep link hijacking using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#implicit-intent-testing).
+Find out how to perform deep link hijacking using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#implicit-intent).
 
 ## 7. WebViews
 
@@ -1348,17 +1348,17 @@ This can easily lead to arbitrary file read/write, data leakage and exfiltration
 
 **This can only be done using a "malicious" PoC app, as it is too complex for tools such as Drozer.**
 
-Find out how to perform intent injections using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#implicit-intent-injection-testing).
+Find out how to perform intent injections using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#implicit-intent-injection).
 
 ## 12. Taskjacking
 
-Find out how to perform [taskjacking](https://developer.android.com/privacy-and-security/risks/strandhogg) using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#task-hijacking-testing).
+Find out how to perform [taskjacking](https://developer.android.com/privacy-and-security/risks/strandhogg) using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#taskjacking).
 
 Sometimes, this is by design, to improve the user experience (UX) when "switching" between two apps.
 
 ## 13. Tapjacking
 
-Find out how to perform [tapjacking](https://developer.android.com/privacy-and-security/risks/tapjacking) using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#tapjacking-testing).
+Find out how to perform [tapjacking](https://developer.android.com/privacy-and-security/risks/tapjacking) using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#tapjacking).
 
 App should prevent overlays on sensitive data inputs by specifying `android:filterTouchesWhenObscured="true"` in its layout files.
 
