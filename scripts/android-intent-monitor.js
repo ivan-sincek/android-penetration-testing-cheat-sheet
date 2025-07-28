@@ -9,15 +9,16 @@ function hook(intent) {
 	var tmp = null;
 	tmp = intent.getComponent();
 	if (tmp) {
-		text.push("Activity: " + tmp.getClassName());
-	}
-	tmp = intent.getAction();
-	if (tmp) {
-		text.push("Action: " + tmp);
+		text.push("Package Name: " + tmp.getPackageName());
+		text.push("Class Name: " + tmp.getClassName());
 	}
 	tmp = intent.getData();
 	if (tmp) {
 		text.push("URI: " + tmp);
+	}
+	tmp = intent.getAction();
+	if (tmp) {
+		text.push("Action: " + tmp);
 	}
 	tmp = intent.getFlags();
 	if (tmp) {
@@ -31,10 +32,10 @@ function hook(intent) {
 	if (tmp) {
 		var keys = tmp.keySet().iterator();
 		while (keys.hasNext()) {
+			var type = "null";
+			var value = "null";
 			var key = keys.next();
 			var obj = tmp.get(key);
-			var value = "null";
-			var type = "";
 			if (obj) {
 				try {
 					type = obj.getClass().getSimpleName();
