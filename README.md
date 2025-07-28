@@ -1207,7 +1207,7 @@ run app.activity.info -i -a com.someapp.dev
 run app.activity.info -u -i -a com.someapp.dev
 ```
 
-Examine the launch intent (main activity):
+Examine the launch intent filter in main activity:
 
 ```fundamental
 run app.package.launchintent com.someapp.dev
@@ -1259,7 +1259,7 @@ run scanner.provider.sqltables -a com.someapp.dev
 run scanner.provider.traversal -a com.someapp.dev
 ```
 
-You will need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the content provider to exploit it.
+You will need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the intent filter to exploit it.
 
 Content provider CRUD controls and more:
 
@@ -1297,7 +1297,7 @@ Monitor broadcast receivers:
 run app.broadcast.sniff --action com.someapp.dev.SOME_ACTION
 ```
 
-You will need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the broadcast receiver to exploit it.
+You will need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the intent filter to exploit it.
 
 Send intent to a broadcast receiver:
 
@@ -1327,7 +1327,7 @@ run app.service.info -i -a com.someapp.dev
 run app.service.info -i -u -a com.someapp.dev
 ```
 
-You will nedd to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the service to exploit it.
+You will need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the intent filter to exploit it.
 
 Send intent to a service:
 
