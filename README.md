@@ -104,9 +104,10 @@ Future plans:
 
 **10. [Drozer](#10-drozer)**
 
-* [Intents](#intents)
+* [Activities](#activities)
 * [Content Providers](#content-providers)
 * [Broadcast Receivers](#broadcast-receivers)
+* [Services](#services)
 
 **11. [Intent Injections](#11-intent-injections)**
 
@@ -1192,13 +1193,13 @@ Show app's attack surface:
 run app.package.attacksurface com.someapp.dev
 ```
 
-### Intents
+### Activities
 
 Intents, together with other Android components, can easily lead to cross-site scripting (XSS), arbitrary file read/write, data leakage and exfiltration, remote code execute (RCE), etc.
 
 Read more about intents and intent filters [here](developer.android.com/guide/components/intents-filters).
 
-List exported and protected (unexported) activities and their intents:
+List exported and protected activities and their intent filters:
 
 ```fundamental
 run app.activity.info -i -a com.someapp.dev
@@ -1218,7 +1219,7 @@ List browsable URIs (deep links):
 run scanner.activity.browsable -a com.someapp.dev
 ```
 
-You will need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the intent to exploit it.
+You will need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the intent filter to exploit it.
 
 Start an activity:
 
@@ -1230,13 +1231,13 @@ run app.activity.start --component com.someapp.dev com.someapp.dev.SomeActivity 
 
 Use `--help` to see more options.
 
-__In Drozer, you cannot pass arrays, lists, objects, etc., to an intent due to the console line interface (CLI) limitations, but the same can be done if you build your own "malicious" app.__
+__In Drozer, you cannot pass arrays, lists, objects, etc., in intet extras due to the console line interface (CLI) limitations, but the same can be done if you build your own "malicious" PoC app.__
 
 ### Content Providers
 
 Read more about content providers [here](https://developer.android.com/guide/topics/providers/content-providers).
 
-List exported and protected (unexported) content providers:
+List exported and protected content providers:
 
 ```fundamental
 run app.provider.info -a com.someapp.dev
@@ -1280,9 +1281,9 @@ Use `--help` to see more options.
 
 ### Broadcast Receivers
 
-Read more about broadcasts [here](https://developer.android.com/develop/background-work/background-tasks/broadcasts).
+Read more about broadcast receivers [here](https://developer.android.com/develop/background-work/background-tasks/broadcasts).
 
-List exported and protected (unexported) broadcast receivers:
+List exported and protected broadcast receivers:
 
 ```fundamental
 run app.broadcast.info -i -a com.someapp.dev
@@ -1298,7 +1299,7 @@ run app.broadcast.sniff --action com.someapp.dev.SOME_ACTION
 
 You will need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the broadcast receiver to exploit it.
 
-Send data to a broadcast receiver:
+Send intent to a broadcast receiver:
 
 ```fundamental
 run app.broadcast.send --action com.someapp.dev.SOME_ACTION --extra integer somekey somevalue --extra string somekey somevalue
@@ -1318,7 +1319,7 @@ Use `--help` to see more options.
 
 Read more about services [here](https://developer.android.com/develop/background-work/services).
 
-List exported and protected (unexported) services:
+List exported and protected services:
 
 ```fundamental
 run app.service.info -i -a com.someapp.dev
@@ -1328,7 +1329,7 @@ run app.service.info -i -u -a com.someapp.dev
 
 You will nedd to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the service to exploit it.
 
-Send data to a service:
+Send intent to a service:
 
 ```fundamental
 run app.service.send com.someapp.dev com.someapp.dev.SomeService --msg what arg1 arg2 --extra string somevalue --extra integer somevalue --bundle-as-obj
@@ -1342,7 +1343,7 @@ Use `--help` to see more options.
 
 ## 11. Intent Injections
 
-Access a protected (unexported) component, such as a private file or an SQLite content provider, using an exported (proxy) intent.
+Access a protected component, such as a private file or an SQLite content provider, using an exported (proxy) intent.
 
 This can easily lead to arbitrary file read/write, data leakage and exfiltration, remote code execute (RCE), etc.
 
