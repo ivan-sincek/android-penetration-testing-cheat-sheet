@@ -891,7 +891,7 @@ Increasing the [priority](https://github.com/ivan-sincek/malware-apk/blob/main/s
 
 After that, you will need to find a way to trigger your target deep link.
 
-Find out how to perform deep link hijacking using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#implicit-intent).
+Find out how to perform deep link hijacking using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#intent).
 
 ## 7. WebViews
 
@@ -1349,7 +1349,7 @@ This can easily lead to arbitrary file read/write, data leakage and exfiltration
 
 **This can only be done using a "malicious" PoC app, as it is too complex for tools such as Drozer.**
 
-Find out how to perform intent injections using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#implicit-intent-injection).
+Find out how to perform intent injections using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#intent).
 
 ## 12. Taskjacking
 
