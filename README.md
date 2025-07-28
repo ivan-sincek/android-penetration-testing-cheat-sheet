@@ -397,7 +397,7 @@ adb uninstall -k com.someapp.dev
 
 ### Download/Upload Files and Directories
 
-Some of the internal storage paths:
+Some of the paths you should know:
 
 ```fundamental
 cd /data/local/tmp/
@@ -417,7 +417,7 @@ cd /storage/3664-6132/Android/data/com.someapp.dev/files/
 
 Number `0` in both, `/data/user/0/` and `/storage/emulated/0/` paths, represents the first user in a multi-user device.
 
-`/storage/emulated/0/` is the internal storage path that can be accessed through the UI, e.g., on your Android device, navigate to `My Files --> Internal Storage`.
+`/storage/emulated/0/` is the user-accessible storage path that can be accessed through the UI, e.g., on your Android device, navigate to `My Files --> Internal Storage`.
 
 Don't confuse `/mnt/sdcard/` path with a real removable storage path because sometimes such path is device specific, so you will need to search it on the internet or extract it using some Java code. In my case it is `/mnt/media_rw/3664-6132/` path.
 
