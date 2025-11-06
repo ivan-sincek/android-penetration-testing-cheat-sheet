@@ -2,7 +2,7 @@
 
 This is more of a checklist for myself. May contain useful tips and tricks. **Still need to add a lot of things.**
 
-Everything was tested on Kali Linux v2024.2 (64-bit), Samsung A5 (2017) with Android OS v8.0 (Oreo), and Samsung Galaxy Note S20 Ultra with Android OS v13.0 (Tiramisu) and Magisk root v29.0.
+Everything was tested on Kali Linux v2024.2 (64-bit) and Samsung Galaxy Note S20 Ultra with Android OS v13.0 (Tiramisu) and Magisk root v29.0.
 
 For help with any of the tools type `<tool_name> [-h | -hh | --help]` or `man <tool_name>`.
 
@@ -12,7 +12,7 @@ I also recommend reading [HackTricks - Android Applications Pentesting](https://
 
 __In most cases, to be eligible for a bug bounty reward, you need to exploit a vulnerability without root privileges, potentially by creating your own proof-of-concept (PoC) app with malicious behavior.__
 
-Find out more about my "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk).
+Find out more about my Android penetration testing APK in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk).
 
 Websites that you should use while writing the report:
 
@@ -192,6 +192,8 @@ Install [WiFi ADB - Debug Over Air](https://play.google.com/store/apps/details?i
 
 ### BusyBox
 
+Seems to be depricated!
+
 Additional set of tools for advanced users. Read more at [busybox.net](https://busybox.net/about.html) \([Google Play](https://play.google.com/store/apps/details?id=stericson.busybox)\).
 
 ### Kali Linux Tools
@@ -245,7 +247,7 @@ wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/
 
 chmod +x apktool && cp apktool /usr/local/bin/apktool
 
-wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.9.3.jar -O apktool.jar
+wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.12.1.jar -O apktool.jar
 
 chmod +x apktool.jar && cp apktool.jar /usr/local/bin/apktool.jar
 ```
@@ -512,14 +514,14 @@ Always inspect `decoded/AndroidManifest.xml` content for possible misconfigurati
 Things to look for in AndroidManifest.xml:
 
 * `minSdkVersion`, `targetSDKVersion`, and `maxSdkVersion` - app should not support outdated and vulnerable Android releases,
-* `debuggable="true"` - production app (i.e., build) should not be debuggable,
+* `debuggable="true"` - production app (i.e., release build) should not be debuggable,
 * `android:allowBackup="true"` - app should not [backup](#backups) any sensitive data,
 * `usesCleartextTraffic="true"` - app should not use a cleartext HTTP communication,
 * `networkSecurityConfig` - inspect network security configurations for SSL/TLS pinnings, whitelisted domains, and `cleartextTrafficPermitted="true"` inside `decoded/res/xml/` directory,
-* `permission` - look for unused \[custom\] permissions, and permissions with weak [protection](https://developer.android.com/guide/topics/manifest/permission-element) (`protectionLevel`),
+* `permission` - look for unused/misconfigured \[custom\] permissions, and permissions with weak [protection](https://developer.android.com/guide/topics/manifest/permission-element) (`protectionLevel`),
 * `exported="true"` - [enumerate](#10-drozer) exported activities, content providers, broadcast receivers, and services,
 * `taskAffinity` - activities missing this attribute might be vulnerable to [taskjacking](#taskjacking),
-* `android:autoVerify="true"` - deep links missing this attribute might be vulnerable to [deep link hijacking](#deep-link-hijacking),
+* `android:autoVerify="true"` - app links missing this attribute or misconfigured [asset links file](https://developer.android.com/training/app-links/verify-applinks) might lead to [deep link hijacking](#deep-link-hijacking),
 * etc.
 
 ---
@@ -608,7 +610,7 @@ After you finish testing \[and logout\], don't forget to [download](#downloadupl
 
 There will be some false positive results since the regular expressions are not perfect. I prefer to use `rabin2` over `strings` because it can read Unicode characters.
 
-On your Android device, try to modify app's files to test the filesystem checksum validation, i.e., to test the file integrity validation.
+On your Android device, try to modify app's files to test the filesystem checksum validation, i.e., to test the file integrity validation - if there is any.
 
 ### Single File
 
@@ -798,8 +800,6 @@ Run without the GUI:
 java -jar spotbugs.jar -textui -progress -sourcepath /root/Desktop/source_jar/sources -html=/root/Desktop/spotbugs_results.html /root/Desktop/base.jar
 ```
 
-More about the tool at [spotbugs/spotbugs](https://github.com/spotbugs/spotbugs).
-
 ## 6. Deep Links
 
 Test [/.well-known/assetlinks.json](https://developer.android.com/training/app-links/verify-android-applinks) using [developers.google.com/digital-asset-links/tools/generator](https://developers.google.com/digital-asset-links/tools/generator).
@@ -810,7 +810,7 @@ Don't forget to test a deep link for a cross-site scripting (XSS), open redirect
 
 ---
 
-Create an HTML template to manually test deep links (see also ##):
+Create an HTML template to manually test deep links:
 
 ```bash
 mkdir android_deep_links
@@ -870,11 +870,11 @@ python3 deeplink_analyser.py -op verify-applinks -apk base.apk -p com.someapp.de
 
 ### Deep Link Hijacking
 
-Hijacking a deep link after a successful login on a website can easly lead to session hijacking.
+Hijacking a deep link during the redirect from a website after a successful login can easily lead to session hijacking.
 
-**Properly implemented app links cannot be hijacked.**
+**Properly configured asset link files and properly implemented app links can prevent hijacking.**
 
-To hijack a deep link, specify it in [AndroidManifest.xml](https://github.com/ivan-sincek/malware-apk/blob/main/src/Malware/app/src/main/AndroidManifest.xml#L49) inside a "malicious" PoC app:
+To hijack a deep link, specify it in AndroidManifest.xml inside your PoC app (such as I did in [Malware APK](https://github.com/ivan-sincek/malware-apk/blob/main/src/Malware/app/src/main/AndroidManifest.xml#L60)):
 
 ```xml
 <data
@@ -883,7 +883,7 @@ To hijack a deep link, specify it in [AndroidManifest.xml](https://github.com/iv
 />
 ```
 
-Increasing the [priority](https://github.com/ivan-sincek/malware-apk/blob/main/src/Malware/app/src/main/AndroidManifest.xml#L45) might also increase your chances of hijacking a deep link:
+Increasing the priority might also increase your chances of hijacking a deep link:
 
 ```xml
 <intent-filter android:priority="999">
@@ -891,13 +891,11 @@ Increasing the [priority](https://github.com/ivan-sincek/malware-apk/blob/main/s
 
 After that, you will need to find a way to trigger your target deep link.
 
-Find out how to perform deep link hijacking using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#intent).
-
 ## 7. WebViews
 
-Unless there is an explicit need, WebView URLs should not be user-controlled, e.g., through intents.
+Unless there is an explicit need, WebView URLs should not be user-controlled, e.g., through intents or deep links.
 
-WebViews can easily lead to cross-site scripting (XSS), arbitrary file read/write, data leakage and exfiltration, remote code execute (RCE), etc.
+WebViews can easily lead to cross-site scripting (XSS), arbitrary file read/write, data leakage/exfiltration, remote code execute (RCE), etc.
 
 Things to look for in the source code:
 * [WebView](https://developer.android.com/reference/android/webkit/WebView)
@@ -1195,9 +1193,9 @@ run app.package.attacksurface com.someapp.dev
 
 ### Activities
 
-Intents, together with other Android components, can easily lead to cross-site scripting (XSS), arbitrary file read/write, data leakage and exfiltration, remote code execute (RCE), etc.
+Intents, together with other Android components, can easily lead to cross-site scripting (XSS), arbitrary file read/write, data leakage/exfiltration, remote code execute (RCE), etc.
 
-Read more about intents and intent filters [here](developer.android.com/guide/components/intents-filters).
+Read more about intents and intent filters [here](https://developer.android.com/guide/components/intents-filters).
 
 List exported and protected activities and their intent filters:
 
@@ -1231,7 +1229,7 @@ run app.activity.start --component com.someapp.dev com.someapp.dev.SomeActivity 
 
 Use `--help` to see more options.
 
-__In Drozer, you cannot pass arrays, lists, objects, etc., in intet extras due to the console line interface (CLI) limitations, but the same can be done if you build your own "malicious" PoC app.__
+__In Drozer, you cannot pass arrays, array lists, class objects, etc., in intet extras due to the console line interface (CLI) limitations, but you can in [Malware APK](https://github.com/ivan-sincek/malware-apk#intent).__
 
 ### Content Providers
 
@@ -1259,7 +1257,7 @@ run scanner.provider.sqltables -a com.someapp.dev
 run scanner.provider.traversal -a com.someapp.dev
 ```
 
-You will need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the intent filter to exploit it.
+You will need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the content provider to exploit it.
 
 Content provider CRUD controls and more:
 
@@ -1268,7 +1266,7 @@ run app.provider.insert content://com.someapp.dev.ContentProvider --integer some
 
 run app.provider.query content://com.someapp.dev.ContentProvider --projection '*'
 
-run app.provider.query content://com.someapp.dev.ContentProvider --projection '* FROM anothertable;--'
+run app.provider.query content://com.someapp.dev.ContentProvider --projection '* from sqlite_master--'
 
 run app.provider.update content://com.someapp.dev.ContentProvider --selection 'somekey=?' --selection-args somevalue --integer somekey somevalue --string somekey somevalue
 
@@ -1299,7 +1297,7 @@ run app.broadcast.sniff --action com.someapp.dev.SOME_ACTION
 
 You will need to [reverse engineer](#14-decompile-an-apk) the APK and look into the source code to find out what parameters need to be sent to the intent filter to exploit it.
 
-Send intent to a broadcast receiver:
+Send (broadcast) an intent to a broadcast receiver:
 
 ```fundamental
 run app.broadcast.send --action com.someapp.dev.SOME_ACTION --extra integer somekey somevalue --extra string somekey somevalue
@@ -1307,7 +1305,7 @@ run app.broadcast.send --action com.someapp.dev.SOME_ACTION --extra integer some
 
 __In Drozer, you cannot specify a broadcast receiver, but in [ADB](#android-debug-bridge-adb), you can.__
 
-If a broadcast receiver does not have an intent filter, you can try triggering it with a non-existent action:
+If a broadcast receiver does not have an intent filter, you can still try to trigger it explicitly with a non-existent action:
 
 ```fundamental
 adb shell am broadcast -a android.intent.action.NON_EXISTING_ACTION -n come.someapp.dev/.SomeReceiver
@@ -1343,23 +1341,21 @@ Use `--help` to see more options.
 
 ## 11. Intent Injections
 
-Access a protected component, such as a private file or an SQLite content provider, using an exported (proxy) intent.
+Access a protected component, such as a protected file or SQLite content provider, by exploiting an exported (proxy) component.
 
-This can easily lead to arbitrary file read/write, data leakage and exfiltration, remote code execute (RCE), etc.
+This can easily lead to arbitrary file read/write, data leakage/exfiltration, remote code execute (RCE), etc.
 
-**This can only be done using a "malicious" PoC app, as it is too complex for tools such as Drozer.**
-
-Find out how to perform intent injections using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#intent).
+**This is too complex for tools such as Drozer, but not for [Malware APK](https://github.com/ivan-sincek/malware-apk#intent).**
 
 ## 12. Taskjacking
 
-Find out how to perform [taskjacking](https://developer.android.com/privacy-and-security/risks/strandhogg) using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#taskjacking).
+Find out how to perform [taskjacking](https://developer.android.com/privacy-and-security/risks/strandhogg) in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#task-hijacking).
 
-Sometimes, this is by design, to improve the user experience (UX) when "switching" between two apps.
+Sometimes, allowing this is by design, to improve the user experience (UX) when switching between two apps.
 
 ## 13. Tapjacking
 
-Find out how to perform [tapjacking](https://developer.android.com/privacy-and-security/risks/tapjacking) using a "malicious" PoC app in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#tapjacking).
+Find out how to perform [tapjacking](https://developer.android.com/privacy-and-security/risks/tapjacking) in my project at [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk#tap-hijacking).
 
 App should prevent overlays on sensitive data inputs by specifying `android:filterTouchesWhenObscured="true"` in its layout files.
 
@@ -1529,9 +1525,9 @@ App should not disclose sensitive data in the predictive text (due to incorrectl
 
 App should warn a user when taking a screenshot of sensitive data.
 
-App should warn a user that it is trivial to bypass biometrics authentication if his Android device is jailbroken.
+App should warn a user that it is trivial to bypass biometrics authentication if Android device is jailbroken.
 
-Production app (i.e., build) should not be debuggable.
+Production app (i.e., release build) should not be debuggable.
 
 ## 18. Useful Websites and Tools
 
