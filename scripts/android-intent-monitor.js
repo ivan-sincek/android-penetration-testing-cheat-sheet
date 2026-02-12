@@ -4,7 +4,7 @@
  * Author: ivan-sincek
  * Source: https://github.com/ivan-sincek/android-penetration-testing-cheat-sheet/blob/main/scripts/android-intent-monitor.js
  ************************************************************************/
-function hook(intent) {
+function dumpIntent(intent) {
 	var text = [];
 	var tmp = null;
 	tmp = intent.getComponent();
@@ -51,20 +51,46 @@ function hook(intent) {
 	console.log(text.join("\n"));
 }
 function hookGetData() {
-	hook(this);
+	dumpIntent(this);
 	return this.getData();
 }
 function hookGetIntent() {
 	var intent = this.getIntent();
-	hook(intent);
+	dumpIntent(intent);
 	return intent;
+}
+function hookSetResult1(code) {
+	var text = [];
+	text.push("Result Activity: " + this.getClass().getName());
+	text.push("Result Code: " + code);
+	text.push("--------------------");
+	console.log(text.join("\n"));
+	return this.setResult(code);
+}
+function hookSetResult2(code, intent) {
+	var text = [];
+	text.push("Result Activity: " + this.getClass().getName());
+	text.push("Result Code: " + code);
+	if (intent) {
+		console.log(text.join("\n"));
+		dumpIntent(intent);
+	} else {
+		text.push("--------------------");
+		console.log(text.join("\n"));
+	}
+	return this.setResult(code, intent);
 }
 setTimeout(function() {
 	Java.perform(function() {
 		console.log("");
-		var Intent = Java.use("android.content.Intent");
-		Intent.getData.implementation = hookGetData;
-		// var Activity = Java.use("android.app.Activity");
-		// Activity.getIntent.implementation = hookGetIntent;
+		// DEEP LINKS
+		// var Intent = Java.use("android.content.Intent");
+		// Intent.getData.implementation = hookGetData;
+		// INTENTS
+		var Activity = Java.use("android.app.Activity");
+		Activity.getIntent.implementation = hookGetIntent;
+		// ACTIVITY RESULT CALLBACKS
+		// Activity.setResult.overload("int").implementation = hookSetResult1;
+		// Activity.setResult.overload("int", "android.content.Intent").implementation = hookSetResult2;
 	});
 }, 0);
