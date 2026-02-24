@@ -1041,6 +1041,8 @@ frida -U -no-pause --codeshare ivan-sincek/android-intent-monitor -f com.someapp
 
 ## 9. Objection
 
+**Objection has undergone a major usage / syntax upgrade. This section is pending an update.**
+
 Useful resources:
 
 * [sensepost/objection](https://github.com/sensepost/objection)
@@ -1534,6 +1536,7 @@ Production app (i.e., release build) should not be debuggable.
 | URL | Description |
 | --- | --- |
 | [developer.android.com](https://developer.android.com) | Official Android documentation. |
+| [developer.apple.com/apple-pay/sandbox-testing](https://developer.apple.com/apple-pay/sandbox-testing) | Test debit/credit cards. |
 | [streaak/keyhacks](https://github.com/streaak/keyhacks) | Validate various API keys. |
 | [zxing.org/w/decode.jspx](https://zxing.org/w/decode.jspx) | Decode QR codes. |
 | [odinforum.com](https://odinforum.com/discussion/11/latest-versions-of-odin-flashing-tool) | Firmware flashing tool for Samsung devices. |
