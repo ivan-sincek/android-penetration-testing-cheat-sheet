@@ -698,6 +698,8 @@ To inspect the content, navigate to `Browse Data` tab, expand `Table` dropdown m
 
 <p align="center">Figure 6 - DB Browser for SQLite</p>
 
+If you are working on a machine where you cannot install anything, [DBConvert SQLite Viewer](https://streams.dbconvert.com/sqlite-viewer) opens the same file in a browser tab. It is read-only, so it does not replace DB Browser.
+
 To inspect and/or edit database files on your Android device directly, use [SQLite 3](#magisk-sqlite-3); [ADB](#android-debug-bridge-adb) to your Android device and run the following commands:
 
 ```sql
